@@ -1,87 +1,48 @@
-Sewasew AIv0.1 — App Description
+# Sewasew AI (ሰዋሰው AI)
 
 Sewasew AI is a mobile AI assistant designed to work naturally in Amharic, with seamless support for English and bilingual (Amharic + English) conversations.
 
 The app focuses on users who are underserved by existing AI tools due to language barriers, offering an experience that feels local, accessible, and simple.
 
-Core Purpose
+## Core Purpose
 
 Most AI chat apps prioritize English. Sewasew AI flips that priority by making Amharic a first-class language, not an afterthought.
 
-Key Features
-🗣️ Multilingual AI Chat
+## Key Features
 
-Chat naturally in Amharic, English, or both
+### 🗣️ Multilingual AI Chat
+- Chat naturally in Amharic, English, or both
+- Language mode can be switched at any time
+- Responses are adapted based on the selected language preference
 
-Language mode can be switched at any time
+### 💬 Clean, Focused Chat Experience
+- Minimal, distraction-free chat UI
+- Typing indicators and smooth message flow
+- Designed for clarity and ease of use
 
-Responses are adapted based on the selected language preference
+### 📚 AI Practice Hub
+- **Practice Scenarios**: Launch dynamic roleplays (Markey, Grammar, Quiz).
+- **Translations**: Integrated AI translation tools.
+- **Progress**: Track your learning journey.
 
-💬 Clean, Focused Chat Experience
+### 🌍 Offline-Friendly Design
+- Graceful handling of no-internet situations
+- Clear feedback instead of crashes
+- Local preferences saved on device
 
-Minimal, distraction-free chat UI
+### ⚡ Lightweight & Private
+- No accounts required
+- No data stored on servers
+- Designed for closed testing and personal use
+- **Bring Your Own Key**: Configure your own Gemini API key in Settings.
 
-Typing indicators and smooth message flow
+## Technical Info
+- **Tech Stack**: Flutter 3.x
+- **AI Model**: Gemini 1.5 Flash (via Google Generative AI)
+- **State Management**: Provider
+- **Storage**: SharedPreferences
 
-Designed for clarity and ease of use
-
-📚 Study & Learning Hub
-
-Central hub for learning-focused tools
-
-Includes:
-
-AI-powered explanations
-
-Translation assistance
-
-Simple study helpers
-
-Progress tracking stored locally
-
-🌍 Offline-Friendly Design
-
-Graceful handling of no-internet situations
-
-Clear feedback instead of crashes
-
-Local preferences saved on device
-
-⚡ Lightweight & Private
-
-No accounts required
-
-No data stored on servers
-
-Designed for closed testing and personal use
-
-Target Users
-
-Amharic speakers who want AI assistance in their own language
-
-Students and learners
-
-Users new to AI tools
-
-Friends and testers exploring AI capabilities
-
-Project Status
-
-Sewasew AI is an early-stage MVP built for experimentation and learning.
-It is currently distributed as an APK for closed testing and is not yet published publicly.
-
-Why This Project Exists
-
-This app is both:
-
-A real product experiment
-
-A hands-on exploration of how far AI can go in supporting local languages with limited resources
-
-Tech Stack
-
-Flutter (cross-platform mobile)
-
-AI API integration (pluggable backend)
-
-Local storage for preferences and progress
+## Getting Started
+1. Clone the repo.
+2. Run `flutter pub get`.
+3. Build apk: `flutter build apk --release`.
