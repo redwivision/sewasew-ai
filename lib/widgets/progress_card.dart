@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../core/progress_service.dart';
 
 class ProgressCard extends StatelessWidget {
   const ProgressCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final progressService = context.watch<ProgressService>();
+    // For demo, average all lessons
+    final progress = progressService.progress.values.isEmpty
+        ? 0.0
+        : progressService.progress.values.reduce((a, b) => a + b) /
+            progressService.progress.length;
+    final percent = (progress * 100).toInt();
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.green.withOpacity(0.15),
-        borderRadius: BorderRadius.circular(18),
+        color: Colors.white.withValues(alpha: 0.05),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
       ),
       child: Row(
         children: [
@@ -17,29 +27,46 @@ class ProgressCard extends StatelessWidget {
             alignment: Alignment.center,
             children: [
               SizedBox(
-                height: 60,
-                width: 60,
+                height: 64,
+                width: 64,
                 child: CircularProgressIndicator(
-                  value: 0.75,
+                  value: progress,
                   strokeWidth: 6,
-                  color: Colors.greenAccent,
-                  backgroundColor: Colors.white24,
+                  color: const Color(0xFF00C853), // Emerald
+                  backgroundColor: Colors.white.withValues(alpha: 0.1),
                 ),
               ),
-              const Text('75%',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+              Text(
+                '$percent%',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
             ],
           ),
-          const SizedBox(width: 16),
-          const Expanded(
+          const SizedBox(width: 20),
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('የቀጠለ ትምህርት',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                SizedBox(height: 4),
-                Text('3 ሰዓት • 4 ቀን ቀጥሏል',
-                    style: TextStyle(color: Colors.white70)),
+                const Text(
+                  'Current Level',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  '3 Hours Studied',
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.5),
+                    fontSize: 14,
+                  ),
+                ),
               ],
             ),
           ),

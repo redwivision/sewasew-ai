@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+
 import '../core/main_home.dart';
 import '../widgets/language_tile.dart';
+import 'package:provider/provider.dart';
+import '../core/language_provider.dart';
 
 
 
@@ -12,10 +15,19 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  String selectedLanguage = 'am';
+  late AppLanguage selectedLanguage;
+
+  @override
+  void initState() {
+    super.initState();
+    final lang = context.read<LanguageProvider>().language;
+    selectedLanguage = lang;
+  }
 
   @override
   Widget build(BuildContext context) {
+    final langProvider = context.watch<LanguageProvider>();
+    selectedLanguage = langProvider.language;
     return Scaffold(
       backgroundColor: const Color(0xFF0E1A0E),
       body: SafeArea(
@@ -78,6 +90,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
               const SizedBox(height: 40),
 
+
               // Section title
               const Text(
                 'CHOOSE YOUR LANGUAGE / ቋንቋ ይምረጡ',
@@ -89,26 +102,31 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
               const SizedBox(height: 20),
 
+
               // Language options
               LanguageTile(
                 label: 'አማርኛ (Amharic)',
                 icon: Icons.language,
-                isSelected: selectedLanguage == 'am',
-                onTap: () => setState(() => selectedLanguage = 'am'),
+                isSelected: selectedLanguage == AppLanguage.amharic,
+                onTap: () {
+                  langProvider.setLanguage(AppLanguage.amharic);
+                },
               ),
-
               LanguageTile(
                 label: 'English',
                 icon: Icons.public,
-                isSelected: selectedLanguage == 'en',
-                onTap: () => setState(() => selectedLanguage = 'en'),
+                isSelected: selectedLanguage == AppLanguage.english,
+                onTap: () {
+                  langProvider.setLanguage(AppLanguage.english);
+                },
               ),
-
               LanguageTile(
                 label: 'ሁለቱም (Both)',
                 icon: Icons.translate,
-                isSelected: selectedLanguage == 'both',
-                onTap: () => setState(() => selectedLanguage = 'both'),
+                isSelected: selectedLanguage == AppLanguage.both,
+                onTap: () {
+                  langProvider.setLanguage(AppLanguage.both);
+                },
               ),
 
               const SizedBox(height: 30),
@@ -126,15 +144,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         borderRadius: BorderRadius.circular(14),
                       ),
                     ),
-onPressed: () {
-  Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(
-      builder: (_) => MainHome(),
-    ),
-  );
-},
-
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const MainHome(),
+                        ),
+                      );
+                    },
                     child: const Text(
                       'Get Started',
                       style: TextStyle(
@@ -148,58 +165,6 @@ onPressed: () {
 
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget languageTile({
-    required String code,
-    required String label,
-    required IconData icon,
-  }) {
-    final bool isSelected = selectedLanguage == code;
-
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedLanguage = code;
-        });
-      },
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? Colors.green.withOpacity(0.15)
-              : Colors.white.withOpacity(0.05),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: isSelected ? Colors.greenAccent : Colors.transparent,
-          ),
-        ),
-        child: Row(
-          children: [
-            CircleAvatar(
-              backgroundColor: Colors.black26,
-              child: Icon(icon, color: Colors.greenAccent),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Text(
-                label,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            if (isSelected)
-              const Icon(Icons.check_circle, color: Colors.greenAccent)
-            else
-              const Icon(Icons.radio_button_unchecked,
-                  color: Colors.white38),
-          ],
         ),
       ),
     );

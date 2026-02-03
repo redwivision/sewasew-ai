@@ -9,11 +9,15 @@ class MainHome extends StatefulWidget {
   const MainHome({super.key});
 
   @override
-  State<MainHome> createState() => _MainHomeState();
+  State<MainHome> createState() => MainHomeState();
 }
 
-class _MainHomeState extends State<MainHome> {
+class MainHomeState extends State<MainHome> {
   int _currentIndex = 0;
+
+  void switchTab(int index) {
+    setState(() => _currentIndex = index);
+  }
 
   final List<Widget> _screens = [
     const HubScreen(),
