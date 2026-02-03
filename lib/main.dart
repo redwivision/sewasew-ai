@@ -29,7 +29,7 @@ class SewasewApp extends StatelessWidget {
         fontFamily: 'Sans', // Using system sans for now, or asset font if added
         
         // Premium Card Theme
-        cardTheme: CardTheme(
+        cardTheme: CardThemeData(
           color: const Color(0xFF0E1A0E),
           elevation: 0,
           shape: RoundedRectangleBorder(
