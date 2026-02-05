@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
-import '../core/main_home.dart';
 import '../widgets/language_tile.dart';
 import 'package:provider/provider.dart';
 import '../core/language_provider.dart';
+import 'chat_screen.dart';
 
 
 
@@ -29,7 +28,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     final langProvider = context.watch<LanguageProvider>();
     selectedLanguage = langProvider.language;
     return Scaffold(
-      backgroundColor: const Color(0xFF0E1A0E),
+      backgroundColor: const Color(0xFF020202), // Infinite Black
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -41,12 +40,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 height: 80,
                 width: 80,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF121212),
+                  color: const Color(0xFF0D0D12),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: const Icon(
                   Icons.psychology,
-                  color: Colors.greenAccent,
+                  color: Color(0xFF7000FF), // Electric Violet
                   size: 40,
                 ),
               ),
@@ -77,14 +76,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
               const SizedBox(height: 40),
 
-              // Fake radar circles (simple)
+              // Radar circles
               Stack(
                 alignment: Alignment.center,
                 children: [
                   _circle(260),
                   _circle(180),
                   _circle(100),
-                  const Icon(Icons.public, color: Colors.greenAccent),
+                  const Icon(Icons.public, color: Color(0xFF00E0FF)), // Neon Cyan
                 ],
               ),
 
@@ -138,8 +137,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   height: 52,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.greenAccent,
-                      foregroundColor: Colors.black,
+                      backgroundColor: const Color(0xFF7000FF),
+                      foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
                       ),
@@ -148,7 +147,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => const MainHome(),
+                          builder: (_) => const ChatScreen(),
                         ),
                       );
                     },

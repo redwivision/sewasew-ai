@@ -18,22 +18,22 @@ class SewasewApp extends StatelessWidget {
       title: 'Sewasew AI',
       theme: ThemeData(
         brightness: Brightness.dark,
-        scaffoldBackgroundColor: const Color(0xFF050B05), // Ultra dark green/black
-        primaryColor: const Color(0xFF00C853), // Emerald Green
+        scaffoldBackgroundColor: const Color(0xFF020202), // Infinite Black
+        primaryColor: const Color(0xFF7000FF), // Electric Violet
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF00C853),
+          seedColor: const Color(0xFF7000FF),
           brightness: Brightness.dark,
-          surface: const Color(0xFF0E1A0E),
+          surface: const Color(0xFF0D0D12), // Deep Space Gray/Black
         ),
         useMaterial3: true,
-        fontFamily: 'Sans', // Using system sans for now, or asset font if added
+        fontFamily: 'Sans', 
         
         // Premium Card Theme
         cardTheme: CardThemeData(
-          color: const Color(0xFF0E1A0E),
+          color: const Color(0xFF0D0D12),
           elevation: 0,
           shape: RoundedRectangleBorder(
-            side: BorderSide(color: Colors.white.withValues(alpha: 0.05)),
+            side: BorderSide(color: Colors.white.withValues(alpha: 0.08)),
             borderRadius: BorderRadius.circular(24),
           ),
         ),
@@ -52,9 +52,10 @@ class SewasewApp extends StatelessWidget {
         // Elevated Button Theme
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF00C853),
-            foregroundColor: Colors.black,
-            elevation: 0,
+            backgroundColor: const Color(0xFF7000FF),
+            foregroundColor: Colors.white,
+            elevation: 8,
+            shadowColor: const Color(0xFF7000FF).withValues(alpha: 0.5),
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),

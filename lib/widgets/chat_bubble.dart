@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import '../services/voice_service.dart';
 
 class ChatBubble extends StatelessWidget {
   final String text;
@@ -11,19 +12,24 @@ class ChatBubble extends StatelessWidget {
     super.key,
   });
 
+  bool _isAmharic(String text) {
+    // Basic regex for Ethiopic characters (U+1200 to U+137F)
+    return RegExp(r'[\u1200-\u137F]').hasMatch(text);
+  }
+
   @override
   Widget build(BuildContext context) {
     // Premium Gradients
     final gradient = isUser
         ? const LinearGradient(
-            colors: [Color(0xFF00C853), Color(0xFF009624)], // Emerald to Green
+            colors: [Color(0xFF7000FF), Color(0xFF00E0FF)], // Violet to Cyan
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           )
         : LinearGradient(
             colors: [
-              Colors.white.withValues(alpha: 0.1),
-              Colors.white.withValues(alpha: 0.05),
+              Colors.white.withValues(alpha: 0.08),
+              Colors.white.withValues(alpha: 0.02),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -40,46 +46,75 @@ class ChatBubble extends StatelessWidget {
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 6),
-        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.8),
+        constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.85),
         decoration: BoxDecoration(
           gradient: gradient,
           borderRadius: borderRadius,
           boxShadow: isUser
               ? [
                   BoxShadow(
-                    color: const Color(0xFF00C853).withValues(alpha: 0.2),
-                    blurRadius: 10,
+                    color: const Color(0xFF7000FF).withValues(alpha: 0.3),
+                    blurRadius: 12,
                     offset: const Offset(0, 4),
                   )
                 ]
               : [],
         ),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: isUser
-            ? Text(
-                text,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                  height: 1.4,
+        child: Stack(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (!isUser) const SizedBox(height: 12), // Gap for the icon
+                isUser
+                    ? Text(
+                        text,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          height: 1.4,
+                        ),
+                      )
+                    : MarkdownBody(
+                        data: text,
+                        styleSheet: MarkdownStyleSheet(
+                          p: const TextStyle(color: Colors.white, fontSize: 15, height: 1.4),
+                          strong: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                          code: const TextStyle(
+                            backgroundColor: Colors.black26, 
+                            color: Color(0xFF00E0FF), // Neon Cyan
+                            fontFamily: 'Courier',
+                          ),
+                          codeblockDecoration: BoxDecoration(
+                            color: Colors.black26,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
+              ],
+            ),
+            Positioned(
+              top: -8,
+              right: -8,
+              child: IconButton(
+                onPressed: () => VoiceService.speak(
+                  text, 
+                  langCode: _isAmharic(text) ? 'am-ET' : 'en-US'
                 ),
-              )
-            : MarkdownBody(
-                data: text,
-                styleSheet: MarkdownStyleSheet(
-                  p: const TextStyle(color: Colors.white, fontSize: 15, height: 1.4),
-                  strong: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                  code: const TextStyle(
-                    backgroundColor: Colors.black26, 
-                    color: Colors.greenAccent,
-                    fontFamily: 'Courier',
+                icon: Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withValues(alpha: 0.2),
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
                   ),
-                  codeblockDecoration: BoxDecoration(
-                    color: Colors.black26,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+                  child: const Icon(Icons.volume_up, color: Color(0xFF00E0FF), size: 14),
                 ),
               ),
+            ),
+          ],
+        ),
       ),
     );
   }

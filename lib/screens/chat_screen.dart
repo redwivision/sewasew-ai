@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../widgets/chat_bubble.dart';
 import '../widgets/chat_input.dart';
 import '../core/chat_provider.dart';
+import 'settings_screen.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -10,15 +11,24 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF050B05),
+      backgroundColor: const Color(0xFF020202), // Infinite Black
       appBar: AppBar(
-        title: const Text('Sewasew Chat'),
+        title: const Text('Sewasew AI'),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.settings_outlined, color: Color(0xFF00E0FF)),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const SettingsScreen()),
+            );
+          },
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.cleaning_services_outlined),
+            icon: const Icon(Icons.delete_outline, color: Colors.white54),
             onPressed: () {
                context.read<ChatProvider>().clear();
             },

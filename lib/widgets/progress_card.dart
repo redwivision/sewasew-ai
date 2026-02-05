@@ -32,7 +32,7 @@ class ProgressCard extends StatelessWidget {
                 child: CircularProgressIndicator(
                   value: progress,
                   strokeWidth: 6,
-                  color: const Color(0xFF00C853), // Emerald
+                  color: const Color(0xFF7000FF), // Electric Violet
                   backgroundColor: Colors.white.withValues(alpha: 0.1),
                 ),
               ),
